@@ -1,0 +1,3 @@
+# Esta carpeta se llena cuando corrés `npm run frames` (requiere ffmpeg).
+# Mientras esté vacía, HeroScrub usa el fallback de <video> + currentTime scrub
+# automáticamente. No tenés que tocar código.
