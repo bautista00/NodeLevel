@@ -107,7 +107,7 @@ export default function Membresias() {
         <div
           ref={carouselRef}
           onScroll={onCarouselScroll}
-          className="no-scrollbar -mx-6 flex snap-x snap-mandatory overflow-x-auto gap-px md:mx-0 md:grid md:grid-cols-2 md:gap-3 md:overflow-visible xl:grid-cols-4"
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory overflow-x-auto gap-px pt-5 md:mx-0 md:grid md:grid-cols-2 md:gap-3 md:overflow-visible md:pt-0 xl:grid-cols-4"
         >
           {TIERS.map((t, i) => (
             <Reveal
