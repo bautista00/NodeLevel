@@ -58,8 +58,8 @@ export default function Faq() {
       id="faq"
       className="relative border-t border-border bg-surface2"
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
-        <div className="mb-16 grid grid-cols-12 gap-x-6">
+      <div className="mx-auto max-w-[1280px] px-6 py-36 md:px-12 md:py-56">
+        <div className="mb-20 grid grid-cols-12 gap-x-6">
           <div className="col-span-12 md:col-span-7">
             <Reveal>
               <SectionMeta index="009" tag="PREGUNTAS FRECUENTES" />
@@ -136,7 +136,7 @@ export default function Faq() {
                     >
                       <div className="grid grid-cols-1 gap-6 px-1 pb-7 md:grid-cols-12">
                         <div className="md:col-span-2" />
-                        <p className="text-[14px] leading-[1.7] text-muted md:col-span-9">
+                        <p className="text-[16px] leading-[1.8] text-muted md:col-span-9">
                           {qa.a}
                         </p>
                       </div>

@@ -155,11 +155,11 @@ export default function HeroExpand() {
     };
   }, []); // deps [] — los refs manejan los valores sin re-montar listeners
 
-  // ── Dimensiones del video ────────────────────────────────────────────────
-  const baseW = isMobile ? 280 : 420;
-  const baseH = isMobile ? 380 : 540;
-  const maxW = isMobile ? 720 : 880;
-  const maxH = isMobile ? 340 : 460;
+  // ── Dimensiones del video — portrait 9:16 ───────────────────────────────
+  const baseW = isMobile ? 240 : 340;
+  const baseH = isMobile ? 426 : 604;  // 9:16 ratio
+  const maxW  = isMobile ? 480 : 1100; // expand to ~full viewport width
+  const maxH  = isMobile ? 274 : 296;  // expand height to reach ~900px viewport
 
   const mediaW = baseW + scrollProgress * maxW;
   const mediaH = baseH + scrollProgress * maxH;
@@ -238,9 +238,9 @@ export default function HeroExpand() {
             }}
           />
 
-          {/* ── HUD top ──────────────────────────────────────────────────── */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex justify-between px-6 pt-6 font-mono text-[10px] tracking-[0.2em] md:px-12 md:pt-8">
-            <div className="flex items-center gap-3 text-white/70">
+          {/* ── HUD top — pushed below nav on mobile (nav ~56px tall) ─── */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex justify-between px-6 pt-16 font-mono text-[10px] tracking-[0.2em] md:px-12 md:pt-8">
+            <div className="hidden items-center gap-3 text-white/70 md:flex">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime" />
               <span>NODE / SYSTEM ONLINE</span>
             </div>
@@ -294,7 +294,7 @@ export default function HeroExpand() {
               {/* El video */}
               <video
                 src="/hero-video.mp4"
-                className="absolute inset-0 h-full w-full object-contain"
+                className="absolute inset-0 h-full w-full object-cover"
                 style={{ borderRadius: `${videoRadius}px` }}
                 muted
                 playsInline
@@ -310,6 +310,13 @@ export default function HeroExpand() {
                   borderRadius: `${videoRadius}px`,
                   opacity: Math.max(0, 0.2 - scrollProgress * 0.22),
                 }}
+              />
+
+              {/* Watermark cover — tapa el logo "Veo" en la esquina inferior derecha */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute bottom-0 right-0 bg-black"
+                style={{ width: "72px", height: "28px", borderRadius: `0 0 ${videoRadius}px 0` }}
               />
             </div>
 
@@ -415,7 +422,7 @@ export default function HeroExpand() {
                     <div className="mt-14 grid grid-cols-2 gap-6 border-t border-border pt-8 md:grid-cols-4 md:gap-10">
                       {[
                         { num: "3", label: "PILARES" },
-                        { num: "7", label: "VERIFICACIÓN" },
+                        { num: "5", label: "PASOS" },
                         { num: "4", label: "TIERS" },
                         { num: "100%", label: "VERIFIED" },
                       ].map((s) => (

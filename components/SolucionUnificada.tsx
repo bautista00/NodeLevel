@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Reveal from "./Reveal";
 import SectionMeta from "./SectionMeta";
 
@@ -53,15 +56,25 @@ const PILARES = [
 ];
 
 export default function SolucionUnificada() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  function onCarouselScroll() {
+    const el = carouselRef.current;
+    if (!el) return;
+    const cardW = el.scrollWidth / PILARES.length;
+    setActiveIdx(Math.round(el.scrollLeft / cardW));
+  }
+
   return (
     <section
       id="solucion"
       className="relative border-t border-border bg-black"
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-[1280px] px-6 py-36 md:px-12 md:py-56">
 
         {/* ── PROBLEMA (compacto) ─────────────────────────────────────────── */}
-        <div className="mb-24 grid grid-cols-12 items-start gap-x-6 gap-y-10 border-b border-border pb-24">
+        <div className="mb-36 grid grid-cols-12 items-start gap-x-6 gap-y-10 border-b border-border pb-36">
           {/* Izquierda: headline del problema */}
           <div className="col-span-12 md:col-span-5">
             <Reveal>
@@ -117,7 +130,7 @@ export default function SolucionUnificada() {
         </div>
 
         {/* ── SOLUCIÓN — 3 pilares ────────────────────────────────────────── */}
-        <div className="mb-16 grid grid-cols-12 gap-x-6">
+        <div className="mb-20 grid grid-cols-12 gap-x-6">
           <div className="col-span-12 md:col-span-7">
             <Reveal>
               <h2
@@ -139,12 +152,17 @@ export default function SolucionUnificada() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-px bg-border md:grid-cols-3">
+        {/* Mobile: carousel horizontal con snap — Desktop: grid 3 columnas */}
+        <div
+          ref={carouselRef}
+          onScroll={onCarouselScroll}
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory overflow-x-auto gap-px md:mx-0 md:grid md:grid-cols-3 md:overflow-visible"
+        >
           {PILARES.map((p, i) => (
             <Reveal
               key={p.n}
               delay={i * 100}
-              className="group relative flex flex-col bg-black p-8 md:p-10"
+              className="group relative flex w-[82vw] flex-shrink-0 snap-start flex-col border-r border-border bg-black p-8 first:ml-6 last:mr-6 md:w-auto md:flex-shrink md:border-0 md:p-10 md:first:ml-0 md:last:mr-0"
             >
               {/* lima top stripe on hover */}
               <span
@@ -184,6 +202,20 @@ export default function SolucionUnificada() {
                 ))}
               </ul>
             </Reveal>
+          ))}
+        </div>
+
+        {/* Indicador de dots — solo mobile */}
+        <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+          {PILARES.map((p, i) => (
+            <span
+              key={p.n}
+              className="h-[3px] transition-all duration-300"
+              style={{
+                width: activeIdx === i ? "24px" : "8px",
+                background: activeIdx === i ? "var(--color-lime)" : "var(--color-border2)",
+              }}
+            />
           ))}
         </div>
 

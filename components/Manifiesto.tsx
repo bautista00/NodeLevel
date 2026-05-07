@@ -6,7 +6,7 @@ export default function Manifiesto() {
       id="manifiesto"
       className="relative border-t border-border bg-surface2"
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12 md:py-20">
+      <div className="mx-auto max-w-[1280px] px-6 py-20 md:px-12 md:py-28">
         <Reveal>
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-12">
 

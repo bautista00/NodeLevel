@@ -15,7 +15,7 @@ export default function Verificacion() {
       id="verificacion"
       className="relative border-t border-border bg-black"
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-[1280px] px-6 py-36 md:px-12 md:py-56">
         <div className="grid grid-cols-12 gap-x-6 gap-y-16">
 
           {/* Izquierda — statement */}

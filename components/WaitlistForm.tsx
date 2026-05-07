@@ -96,7 +96,8 @@ export default function WaitlistForm({
               type="submit"
               data-magnetic
               disabled={status === "loading"}
-              className="bg-lime px-6 py-4 font-mono text-[12px] font-bold tracking-[0.18em] text-[#000] transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="bg-lime px-6 py-4 font-mono text-[12px] font-bold tracking-[0.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
+              style={{ color: "#000" }}
             >
               {status === "loading" ? "ENVIANDO..." : compact ? "ENTRAR AL BETA →" : "QUIERO ENTRAR →"}
             </button>

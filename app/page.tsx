@@ -1,10 +1,9 @@
 import Nav from "@/components/Nav";
 import HeroExpand from "@/components/HeroExpand";
 import Ticker from "@/components/Ticker";
-import Problema from "@/components/Problema";
-import Pilares from "@/components/Pilares";
-import Verificacion from "@/components/Verificacion";
 import Manifiesto from "@/components/Manifiesto";
+import SolucionUnificada from "@/components/SolucionUnificada";
+import Verificacion from "@/components/Verificacion";
 import Membresias from "@/components/Membresias";
 import Faq from "@/components/Faq";
 import CtaFinal from "@/components/CtaFinal";
@@ -16,10 +15,9 @@ export default function Home() {
       <Nav />
       <HeroExpand />
       <Ticker />
-      <Problema />
-      <Pilares />
-      <Verificacion />
       <Manifiesto />
+      <SolucionUnificada />
+      <Verificacion />
       <Membresias />
       <Faq />
       <CtaFinal />

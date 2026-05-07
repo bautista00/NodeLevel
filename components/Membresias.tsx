@@ -64,8 +64,8 @@ export default function Membresias() {
       id="membresias"
       className="relative border-t border-border bg-surface"
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
-        <div className="mb-16 grid grid-cols-12 gap-x-6">
+      <div className="mx-auto max-w-[1280px] px-6 py-36 md:px-12 md:py-56">
+        <div className="mb-20 grid grid-cols-12 gap-x-6">
           <div className="col-span-12 md:col-span-7">
             <Reveal>
               <SectionMeta index="008" tag="MEMBRESÍAS" />
@@ -104,7 +104,7 @@ export default function Membresias() {
               }`}
             >
               {t.featured ? (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime px-3 py-1 font-mono text-[9px] font-bold tracking-[0.25em] text-[#000]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime px-3 py-1 font-mono text-[9px] font-bold tracking-[0.25em]" style={{ color: "#000" }}>
                   MÁS POPULAR
                 </span>
               ) : null}

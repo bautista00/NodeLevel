@@ -22,7 +22,7 @@ export default function CtaFinal() {
             "radial-gradient(ellipse at 50% 80%, rgba(198,255,61,0.08) 0%, transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-[1100px] px-6 py-32 text-center md:px-12 md:py-44">
+      <div className="relative mx-auto max-w-[1100px] px-6 py-40 text-center md:px-12 md:py-56">
         <Reveal>
           <div className="inline-flex items-center gap-3 border border-border2 bg-surface px-4 py-2 font-mono text-[10px] tracking-[0.3em] text-lime">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime" />
