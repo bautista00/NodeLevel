@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 
 type Mode = "loading" | "frames" | "video" | "reduced" | "mobile";

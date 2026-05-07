@@ -1,7 +1,4 @@
-/**
- * Meta editorial que aparece al inicio de cada sección — número + tag.
- *  NODE / 003   ▸ EL PROBLEMA
- */
+
 export default function SectionMeta({
   index,
   tag,

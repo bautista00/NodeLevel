@@ -1,19 +1,3 @@
-"use client";
-
-/**
- * HeroExpand — Hero premium para Node Level
- *
- * Combina:
- * 1. LiquidMetal shader (@paper-design/shaders-react) — fondo cromado/metálico
- * 2. ScrollExpand: zapatilla empieza pequeña y crece con el scroll
- * 3. Branding Node Level: Bebas Neue, lime green, techy/HUD
- *
- * Flujo:
- *  scrollProgress 0.0 → Zapatilla pequeña centrada, metal visible, texto partido
- *  scrollProgress 0.5 → Video expandiéndose, "FILTRAMOS" ← → "HYPE." separándose
- *  scrollProgress 1.0 → Full screen, dark overlay, scroll normal habilitado
- */
-
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";

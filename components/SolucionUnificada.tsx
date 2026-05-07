@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef, useState } from "react";
 import Reveal from "./Reveal";
 import SectionMeta from "./SectionMeta";

@@ -1,4 +1,3 @@
-"use client";
 
 import Reveal from "./Reveal";
 import WaitlistForm from "./WaitlistForm";
