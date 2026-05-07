@@ -4,48 +4,48 @@ const COLS = [
   {
     title: "PLATAFORMA",
     links: [
-      "Marketplace",
-      "Drops exclusivos",
-      "Verificación",
-      "Membresías",
-      "Vender en NODE",
+      { label: "Marketplace beta", href: "#waitlist" },
+      { label: "Drops exclusivos", href: "#membresias" },
+      { label: "Verificación", href: "#verificacion" },
+      { label: "Membresías", href: "#membresias" },
+      { label: "Vender en NODE", href: "#waitlist-founders" },
     ],
   },
   {
     title: "AYUDA",
     links: [
-      "Preguntas frecuentes",
-      "Cómo funciona",
-      "Proceso de envío",
-      "Contacto",
-      "Reportar problema",
+      { label: "Preguntas frecuentes", href: "#faq" },
+      { label: "Cómo funciona", href: "#solucion" },
+      { label: "Proceso de envío", href: "#verificacion" },
+      { label: "Contacto", href: "mailto:hola@nodelevel.com" },
+      { label: "Reportar problema", href: "mailto:hola@nodelevel.com" },
     ],
   },
   {
     title: "LEGAL",
     links: [
-      "Términos de uso",
-      "Privacidad",
-      "Política de autenticidad",
-      "Política de envíos",
-      "Reembolsos",
+      { label: "Términos beta", href: "#faq" },
+      { label: "Privacidad", href: "#waitlist" },
+      { label: "Política de autenticidad", href: "#verificacion" },
+      { label: "Política de envíos", href: "#faq" },
+      { label: "Reembolsos", href: "#faq" },
     ],
   },
 ];
 
 const SOCIALS = [
-  { code: "IG", label: "Instagram", href: "#" },
-  { code: "TT", label: "TikTok", href: "#" },
-  { code: "X", label: "Twitter / X", href: "#" },
-  { code: "YT", label: "YouTube", href: "#" },
-  { code: "DC", label: "Discord", href: "#" },
+  { code: "IG", label: "Instagram próximamente" },
+  { code: "TT", label: "TikTok próximamente" },
+  { code: "X", label: "Twitter / X próximamente" },
+  { code: "YT", label: "YouTube próximamente" },
+  { code: "DC", label: "Discord próximamente" },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-[color:var(--color-border)] bg-[color:var(--color-surface)]">
+    <footer className="relative border-t border-border bg-surface">
       <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-20 md:px-12 md:pb-14 md:pt-24">
         <div className="grid grid-cols-12 gap-x-6 gap-y-12">
           {/* Brand */}
@@ -58,26 +58,25 @@ export default function Footer() {
               className="h-20 w-auto object-contain"
               style={{ filter: "brightness(1.1)" }}
             />
-            <div className="mt-4 font-mono text-[10px] tracking-[0.25em] text-[color:var(--color-muted)]">
+            <div className="mt-4 font-mono text-[10px] tracking-[0.25em] text-muted">
               FILTRAMOS HYPE · VALIDAMOS TODO
             </div>
 
             <div className="mt-8 flex gap-2">
               {SOCIALS.map((s) => (
-                <a
+                <span
                   key={s.code}
-                  href={s.href}
-                  data-magnetic
                   aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center border border-[color:var(--color-border2)] font-mono text-[10px] tracking-[0.15em] text-[color:var(--color-muted)] transition-colors hover:border-[color:var(--color-lime)] hover:text-[color:var(--color-lime)]"
+                  title={s.label}
+                  className="flex h-10 w-10 cursor-not-allowed items-center justify-center border border-border2 font-mono text-[10px] tracking-[0.15em] text-dim"
                 >
                   {s.code}
-                </a>
+                </span>
               ))}
             </div>
 
-            <div className="mt-10 inline-flex items-center gap-3 border border-[color:var(--color-border)] px-3 py-2 font-mono text-[10px] tracking-[0.2em] text-[color:var(--color-dim)]">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[color:var(--color-lime)]" />
+            <div className="mt-10 inline-flex items-center gap-3 border border-border px-3 py-2 font-mono text-[10px] tracking-[0.2em] text-dim">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime" />
               SYSTEM ONLINE · BUENOS AIRES
             </div>
           </div>
@@ -85,18 +84,18 @@ export default function Footer() {
           {/* Cols */}
           {COLS.map((c) => (
             <div key={c.title} className="col-span-6 md:col-span-2">
-              <div className="mb-5 font-mono text-[9px] tracking-[0.3em] text-[color:var(--color-lime)]">
+              <div className="mb-5 font-mono text-[9px] tracking-[0.3em] text-lime">
                 {c.title}
               </div>
               <ul className="flex flex-col gap-2.5">
                 {c.links.map((l) => (
-                  <li key={l}>
+                  <li key={l.label}>
                     <a
-                      href="#"
+                      href={l.href}
                       data-magnetic
-                      className="text-[13px] text-[color:var(--color-muted)] transition-colors hover:text-[color:var(--color-text)]"
+                      className="text-[13px] text-muted transition-colors hover:text-text"
                     >
-                      {l}
+                      {l.label}
                     </a>
                   </li>
                 ))}
@@ -106,10 +105,10 @@ export default function Footer() {
 
           {/* Coords / contact */}
           <div className="col-span-12 md:col-span-1">
-            <div className="mb-5 font-mono text-[9px] tracking-[0.3em] text-[color:var(--color-lime)]">
+            <div className="mb-5 font-mono text-[9px] tracking-[0.3em] text-lime">
               ORIGEN
             </div>
-            <div className="font-mono text-[11px] leading-[1.9] text-[color:var(--color-muted)]">
+            <div className="font-mono text-[11px] leading-[1.9] text-muted">
               −34.6° S<br />
               −58.4° W<br />
               ARG / LATAM
@@ -117,11 +116,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-[color:var(--color-border)] pt-6 md:flex-row md:items-center">
-          <span className="font-mono text-[10px] tracking-[0.15em] text-[color:var(--color-dim)]">
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 md:flex-row md:items-center">
+          <span className="font-mono text-[10px] tracking-[0.15em] text-dim">
             © {year} NODE LEVEL — TODOS LOS DERECHOS RESERVADOS
           </span>
-          <span className="font-mono text-[10px] tracking-[0.15em] text-[color:var(--color-dim)]">
+          <span className="font-mono text-[10px] tracking-[0.15em] text-dim">
             v0.1.0 · BUILD {year}.05.01 · BUENOS AIRES
           </span>
         </div>
@@ -130,10 +129,10 @@ export default function Footer() {
       {/* HUGE typographic background */}
       <div
         aria-hidden
-        className="pointer-events-none select-none overflow-hidden border-t border-[color:var(--color-border)]"
+        className="pointer-events-none select-none overflow-hidden border-t border-border"
       >
         <div
-          className="font-display text-[color:var(--color-surface2)] leading-[0.85]"
+          className="font-display text-surface2 leading-[0.85]"
           style={{
             fontSize: "clamp(120px, 22vw, 360px)",
             letterSpacing: "-0.04em",

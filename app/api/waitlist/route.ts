@@ -14,9 +14,14 @@ export async function POST(req: Request) {
     const body = (await req.json().catch(() => ({}))) as {
       email?: string;
       city?: string;
+      tier?: string;
+      source?: string;
     };
 
     const email = (body.email || "").trim();
+    const city = (body.city || "").trim();
+    const tier = (body.tier || "FOUNDERS").trim().toUpperCase();
+    const source = (body.source || "landing").trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
         { ok: false, error: "Email inválido" },
@@ -42,6 +47,9 @@ export async function POST(req: Request) {
       ok: true,
       code,
       email,
+      city,
+      tier,
+      source,
       message: "Estás en la lista. Bienvenido al sistema.",
     });
   } catch {

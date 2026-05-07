@@ -29,32 +29,32 @@ export default function Ticker() {
   return (
     <div
       aria-hidden
-      className="relative overflow-hidden border-y border-[color:var(--color-border)] bg-[color:var(--color-surface)] py-3"
+      className="ticker-wrapper relative overflow-hidden border-t-2 border-t-lime/30 border-b border-border bg-surface py-3"
     >
       <div
-        className="flex w-max gap-12 whitespace-nowrap"
-        style={{ animation: "tickerSlide 60s linear infinite" }}
+        className="ticker-track flex w-max gap-12 whitespace-nowrap"
+        style={{ animation: "tickerSlide 55s linear infinite" }}
       >
         {items.map((it, i) => (
           <div
             key={`${it.name}-${i}`}
-            className="flex items-center gap-3 font-mono text-[11px] tracking-[0.05em] text-[color:var(--color-muted)]"
+            className="flex items-center gap-3 font-mono text-[11px] tracking-[0.05em] text-muted"
           >
-            <span className="h-1 w-1 rounded-full bg-[color:var(--color-lime)]" />
+            <span className="h-1 w-1 rounded-full bg-lime" />
             <span>{it.name}</span>
-            <span className="text-[color:var(--color-text)]">
+            <span className="text-text">
               {ARS.format(it.price)}
             </span>
             <span
               className={
                 it.delta >= 0
-                  ? "text-[color:var(--color-lime)]"
-                  : "text-[color:var(--color-danger)]"
+                  ? "text-lime"
+                  : "text-danger"
               }
             >
               {it.delta >= 0 ? "▲" : "▼"} {Math.abs(it.delta).toFixed(1)}%
             </span>
-            <span className="ml-3 inline-block h-1 w-1 rounded-full bg-[color:var(--color-border2)]" />
+            <span className="ml-3 inline-block h-1 w-1 rounded-full bg-border2" />
           </div>
         ))}
       </div>

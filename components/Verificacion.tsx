@@ -1,244 +1,111 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "./Reveal";
 import SectionMeta from "./SectionMeta";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const STEPS = [
-  {
-    n: "01",
-    code: "INGRESO",
-    desc: "Venta directa, consignación o drop de terceros. El producto entra al sistema NODE.",
-  },
-  {
-    n: "02",
-    code: "INSPECCIÓN",
-    desc: "Análisis físico: materiales, costuras, etiquetas, caja, packaging, desgaste real.",
-  },
-  {
-    n: "03",
-    code: "VALIDACIÓN",
-    desc: "Comparación contra pares originales y base de datos. Resultado: auténtico o rechazado.",
-  },
-  {
-    n: "04",
-    code: "ESTADO",
-    desc: "Clasificación: nuevo o usado con condición detallada. Esto impacta el precio.",
-  },
-  {
-    n: "05",
-    code: "REGISTRO",
-    desc: "ID único + historial guardado en el sistema NODE. Identidad digital del producto.",
-  },
-  {
-    n: "06",
-    code: "TAG NODE",
-    desc: "Tag físico, código QR o identificación digital. Verified by Node.",
-  },
-  {
-    n: "07",
-    code: "PUBLICADO",
-    desc: "Listo en el market con precio validado, historial completo y transparencia total.",
-    final: true,
-  },
+  { code: "INGRESO",     desc: "El producto entra al sistema NODE." },
+  { code: "INSPECCIÓN",  desc: "Análisis físico: materiales, costuras, caja, desgaste real." },
+  { code: "VALIDACIÓN",  desc: "Comparación contra pares originales. Auténtico o rechazado." },
+  { code: "REGISTRO",    desc: "ID único + historial digital del producto en NODE." },
+  { code: "PUBLICADO",   desc: "En el market con precio validado e historial completo.", final: true },
 ];
 
 export default function Verificacion() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!sectionRef.current || !trackRef.current) return;
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
-    const compact = window.matchMedia("(max-width: 900px)").matches;
-    if (compact) return;
-
-    const ctx = gsap.context(() => {
-      const track = trackRef.current!;
-      const overflow = () => track.scrollWidth - window.innerWidth + 96;
-
-      const tween = gsap.to(track, {
-        x: () => -overflow(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${overflow()}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.5,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          onUpdate(self) {
-            if (lineRef.current) {
-              lineRef.current.style.transform = `scaleX(${self.progress})`;
-            }
-          },
-        },
-      });
-
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      };
-    }, sectionRef);
-
-    const id = window.setTimeout(() => ScrollTrigger.refresh(), 100);
-
-    return () => {
-      window.clearTimeout(id);
-      ctx.revert();
-    };
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id="verificacion"
-      className="relative flex min-h-screen flex-col overflow-hidden bg-[color:var(--color-black)]"
+      className="relative border-t border-border bg-black"
     >
-      <div className="mx-auto w-full max-w-[1280px] px-6 pt-28 md:px-12 md:pt-32">
-        <div className="grid grid-cols-12 gap-x-6">
-          <div className="col-span-12 md:col-span-7">
+      <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
+        <div className="grid grid-cols-12 gap-x-6 gap-y-16">
+
+          {/* Izquierda — statement */}
+          <div className="col-span-12 md:col-span-5">
             <Reveal>
-              <SectionMeta index="007" tag="PROCESO DE VERIFICACIÓN" />
+              <SectionMeta index="005" tag="PROCESO DE VERIFICACIÓN" />
             </Reveal>
             <Reveal delay={80}>
               <h2
-                className="font-display text-[clamp(56px,8vw,128px)] leading-[0.88]"
+                className="font-display text-[clamp(56px,7vw,112px)] leading-[0.88]"
                 style={{ letterSpacing: "-0.015em" }}
               >
-                7 PASOS.<br />
-                <span className="text-[color:var(--color-lime)]">CERO DUDAS.</span>
+                VERIFICADO<br />
+                <span className="text-lime">POR NODE.</span>
               </h2>
             </Reveal>
-          </div>
-          <div className="col-span-12 mt-6 md:col-span-5 md:mt-0 md:flex md:items-end">
-            <Reveal delay={140}>
-              <p className="max-w-md text-[15px] leading-[1.7] text-[color:var(--color-muted)]">
-                Cada producto que toca el market pasa por este pipeline.
-                <span className="text-[color:var(--color-text)]"> Físico, digital y en cloud.</span>
+            <Reveal delay={160}>
+              <p className="mt-8 max-w-sm text-[15px] leading-[1.7] text-muted">
+                Cada producto que entra al market pasa por un pipeline físico y digital.
+                <span className="text-text"> Sin excepciones. Sin atajos.</span>
               </p>
             </Reveal>
-          </div>
-        </div>
 
-        {/* Progress bar lima */}
-        <div className="mt-12 hidden h-px w-full bg-[color:var(--color-border)] md:block">
-          <div
-            ref={lineRef}
-            className="h-px origin-left scale-x-0 bg-[color:var(--color-lime)] transition-transform"
-          />
-        </div>
-      </div>
-
-      {/* Scroll horizontal track (desktop) — en mobile colapsa a stack */}
-      <div className="relative flex-1 pt-12 pb-28 md:flex md:items-center md:py-12">
-        <div
-          ref={trackRef}
-          className="no-scrollbar flex flex-col gap-6 overflow-x-auto px-6 md:flex-row md:gap-0 md:overflow-visible md:px-12"
-        >
-          {STEPS.map((s, i) => (
-            <div
-              key={s.n}
-              className={`relative flex w-full flex-shrink-0 flex-col justify-between border border-[color:var(--color-border)] bg-[color:var(--color-surface)] p-7 md:w-[420px] ${
-                s.final
-                  ? "md:border-[color:var(--color-lime)]"
-                  : ""
-              }`}
-              style={{ minHeight: "320px", marginRight: i < STEPS.length - 1 ? undefined : 0 }}
-            >
-              {/* connector line on the right (desktop only) */}
-              {i < STEPS.length - 1 ? (
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute right-[-32px] top-[58px] hidden h-px w-[32px] bg-[color:var(--color-border2)] md:block"
-                />
-              ) : null}
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <div
-                    className={`flex h-12 w-12 items-center justify-center border font-display text-[20px] ${
-                      s.final
-                        ? "border-[color:var(--color-lime)] text-[color:var(--color-lime)]"
-                        : "border-[color:var(--color-border2)] text-[color:var(--color-muted)]"
-                    }`}
-                  >
-                    {s.final ? "✓" : s.n}
+            {/* Verified badge */}
+            <Reveal delay={260}>
+              <div className="mt-12 inline-flex items-center gap-5 border border-lime/30 bg-lime/5 px-6 py-5">
+                <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden>
+                  <circle cx="22" cy="22" r="20" fill="none" stroke="var(--color-lime)" strokeWidth="1" />
+                  <path d="M 13 22 L 19 28 L 32 16" fill="none" stroke="var(--color-lime)" strokeWidth="1.5" strokeLinecap="square" />
+                </svg>
+                <div>
+                  <div className="font-display text-[16px] tracking-[0.06em]">
+                    VERIFIED BY <span className="text-lime">NODE</span>
                   </div>
-                  <span className="font-mono text-[9px] tracking-[0.25em] text-[color:var(--color-dim)]">
-                    [{s.n}/07]
-                  </span>
+                  <div className="mt-1 font-mono text-[9px] tracking-[0.2em] text-muted">
+                    AUTENTICIDAD · HISTORIAL · CONFIANZA
+                  </div>
                 </div>
-
-                <div
-                  className={`mt-8 font-display text-[32px] tracking-[0.04em] ${
-                    s.final
-                      ? "text-[color:var(--color-lime)]"
-                      : "text-[color:var(--color-text)]"
-                  }`}
-                >
-                  {s.code}
-                </div>
-
-                <p className="mt-3 max-w-xs text-[13px] leading-[1.6] text-[color:var(--color-muted)]">
-                  {s.desc}
-                </p>
               </div>
+            </Reveal>
+          </div>
 
-              <div className="mt-8 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-[color:var(--color-dim)]">
-                <span
-                  className={`h-1.5 w-1.5 ${
-                    s.final
-                      ? "rounded-full bg-[color:var(--color-lime)]"
-                      : "bg-[color:var(--color-border2)]"
-                  }`}
-                />
-                {s.final ? "READY FOR MARKET" : "STEP COMPLETE"}
-              </div>
-            </div>
-          ))}
-
-          {/* Verified badge final card */}
-          <div className="flex w-full flex-shrink-0 flex-col items-center justify-center border border-[color:var(--color-lime)] bg-gradient-to-b from-[color:var(--color-lime)]/10 to-transparent p-10 md:w-[420px]">
-            <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden>
-              <circle
-                cx="40"
-                cy="40"
-                r="36"
-                fill="none"
-                stroke="var(--color-lime)"
-                strokeWidth="1"
+          {/* Derecha — pipeline vertical */}
+          <div className="col-span-12 md:col-span-7">
+            <div className="relative flex flex-col">
+              {/* vertical line */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute left-[21px] top-6 bottom-6 w-px bg-border"
               />
-              <path
-                d="M 26 40 L 36 50 L 56 30"
-                fill="none"
-                stroke="var(--color-lime)"
-                strokeWidth="2"
-                strokeLinecap="square"
-              />
-            </svg>
-            <div className="mt-6 text-center">
-              <div className="font-display text-[28px] tracking-[0.06em]">
-                VERIFIED BY <span className="text-[color:var(--color-lime)]">NODE</span>
-              </div>
-              <div className="mt-2 font-mono text-[10px] tracking-[0.25em] text-[color:var(--color-muted)]">
-                AUTENTICIDAD · HISTORIAL · CONFIANZA
-              </div>
+
+              {STEPS.map((s, i) => (
+                <Reveal key={s.code} delay={80 + i * 80}>
+                  <div className="relative flex gap-6 pb-8 last:pb-0">
+                    {/* node circle */}
+                    <div
+                      className={`relative z-10 mt-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center border font-display text-[14px] ${
+                        s.final
+                          ? "border-lime bg-lime/10 text-lime"
+                          : "border-border2 bg-black text-muted"
+                      }`}
+                    >
+                      {s.final ? "✓" : String(i + 1).padStart(2, "0")}
+                    </div>
+
+                    {/* content */}
+                    <div className="flex-1 border-b border-border pb-8 last:border-0">
+                      <div
+                        className={`font-display text-[22px] tracking-[0.04em] ${
+                          s.final ? "text-lime" : "text-text"
+                        }`}
+                      >
+                        {s.code}
+                      </div>
+                      <p className="mt-1 text-[13px] leading-[1.6] text-muted">
+                        {s.desc}
+                      </p>
+                      {s.final && (
+                        <div className="mt-3 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-lime">
+                          <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                          READY FOR MARKET
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
+
         </div>
       </div>
     </section>

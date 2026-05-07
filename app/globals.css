@@ -155,17 +155,40 @@ canvas {
   }
 }
 
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.12;
+    transform: translateX(-15%) skewX(-8deg);
+  }
+  50% {
+    opacity: 0.28;
+    transform: translateX(15%) skewX(-8deg);
+  }
+}
+
+/* Fix: Tailwind v4 does not emit mx-auto utility — declare explicitly */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Reveal on scroll util */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(28px);
   transition:
-    opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
 }
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Ticker pause on hover */
+.ticker-wrapper:hover .ticker-track {
+  animation-play-state: paused;
 }
 
 /* Magnetic targets */

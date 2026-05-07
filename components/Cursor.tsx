@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-/**
- * Cursor custom lima:
- *  - Punto pequeño que sigue al mouse 1:1
- *  - Anillo grande con spring (delay sutil)
- *  - Crece sobre elementos con [data-magnetic] o links/botones
- *  - Se oculta en touch / coarse pointers
- */
+
 export default function Cursor() {
   const [supported, setSupported] = useState(false);
   const [hover, setHover] = useState(false);
@@ -89,7 +83,7 @@ export default function Cursor() {
             opacity: 1,
           }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className="h-[6px] w-[6px] rounded-full bg-[color:var(--color-lime)]"
+          className="h-[6px] w-[6px] rounded-full bg-lime"
           style={{
             boxShadow: "0 0 12px rgba(198,255,61,0.6)",
           }}

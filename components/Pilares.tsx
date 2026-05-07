@@ -5,34 +5,34 @@ const PILARES = [
   {
     n: "01",
     title: "VERIFICACIÓN",
-    desc: "Cada producto pasa por un proceso físico y digital que valida autenticidad y estado real.",
+    desc: "Cada producto pasa por un proceso físico y digital que valida autenticidad, estado real y trazabilidad.",
     items: [
       "Inspección física detallada",
-      "Comparación con base de datos",
-      "Tag Verified by Node",
-      "ID único + historial en nube",
+      "Criterios visibles de autenticidad",
+      "Tag Verified by Node + QR",
+      "ID único + historial consultable",
     ],
   },
   {
     n: "02",
     title: "DATA & MERCADO",
-    desc: "Sistema tipo bolsa con precios en tiempo real, historial completo y lógica de oferta/demanda.",
+    desc: "Sistema tipo bolsa en activación beta: referencias de precio, historial y lógica de oferta/demanda.",
     items: [
-      "Precios en tiempo real",
+      "Precios de referencia en beta",
       "Historial por producto",
-      "Sistema Ask / Bid",
-      "Gráficos de tendencia",
+      "Ask / Bid en roadmap privado",
+      "Tendencias de mercado por categoría",
     ],
   },
   {
     n: "03",
     title: "COMUNIDAD",
-    desc: "Acceso cerrado por membresía con prioridad en drops, beneficios exclusivos y status real.",
+    desc: "Acceso por membresía con prioridad en beta, drops verificados y beneficios medibles.",
     items: [
-      "Acceso anticipado a drops",
+      "Acceso anticipado al beta",
       "Comunidad verificada",
-      "Sistema de niveles",
-      "Oportunidades exclusivas",
+      "Niveles con beneficios claros",
+      "Oportunidades para compradores y sellers",
     ],
   },
 ];
@@ -41,7 +41,7 @@ export default function Pilares() {
   return (
     <section
       id="solucion"
-      className="relative bg-[color:var(--color-surface)]"
+      className="relative border-t border-border bg-surface"
     >
       <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
         <div className="mb-16 grid grid-cols-12 gap-x-6">
@@ -55,67 +55,67 @@ export default function Pilares() {
                 style={{ letterSpacing: "-0.015em" }}
               >
                 NODE RESUELVE<br />
-                <span className="text-[color:var(--color-lime)]">3 PROBLEMAS.</span>
+                <span className="text-lime">3 PROBLEMAS.</span>
               </h2>
             </Reveal>
           </div>
           <div className="col-span-12 md:col-span-5 md:flex md:items-end">
             <Reveal delay={140}>
-              <p className="max-w-md text-[15px] leading-[1.7] text-[color:var(--color-muted)]">
-                No es un marketplace más. Es la infraestructura que le faltaba al mercado de cultura urbana en Argentina.
-                <span className="text-[color:var(--color-text)]"> Tres pilares. Un solo sistema.</span>
+              <p className="max-w-md text-[15px] leading-[1.7] text-muted">
+                No es un marketplace más: primero ordena la confianza, después habilita el intercambio.
+                <span className="text-text"> Tres pilares. Un beta privado.</span>
               </p>
             </Reveal>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-px bg-[color:var(--color-border)] md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px bg-border md:grid-cols-3">
           {PILARES.map((p, i) => (
             <Reveal
               key={p.n}
               delay={i * 120}
-              className="group relative flex flex-col bg-[color:var(--color-black)] p-8 md:p-10"
+              className="group relative flex flex-col bg-black p-8 md:p-10"
             >
               {/* lima top stripe on hover */}
               <span
                 aria-hidden
-                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[color:var(--color-lime)] transition-transform duration-500 group-hover:scale-x-100"
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-lime transition-transform duration-500 group-hover:scale-x-100"
               />
               {/* huge number */}
               <div
-                className="font-display text-[120px] leading-[0.9] text-[color:var(--color-border2)] transition-colors duration-500 group-hover:text-[color:var(--color-lime)]/20"
+                className="font-display text-[120px] leading-[0.9] text-border2 transition-colors duration-700 group-hover:text-lime/25"
                 style={{ letterSpacing: "-0.02em" }}
               >
                 {p.n}
               </div>
 
-              <div className="mt-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.25em] text-[color:var(--color-dim)]">
-                <span className="h-px w-6 bg-[color:var(--color-border2)]" />
+              <div className="mt-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.25em] text-dim">
+                <span className="h-px w-6 bg-border2" />
                 <span>NODE / PILAR {p.n}</span>
               </div>
 
-              <h3 className="mt-3 font-display text-[36px] tracking-[0.04em] text-[color:var(--color-lime)]">
+              <h3 className="mt-3 font-display text-[36px] tracking-[0.04em] text-lime">
                 {p.title}
               </h3>
 
-              <p className="mt-4 text-[14px] leading-[1.65] text-[color:var(--color-muted)]">
+              <p className="mt-4 text-[14px] leading-[1.65] text-muted">
                 {p.desc}
               </p>
 
-              <ul className="mt-8 flex flex-col gap-2.5 border-t border-dashed border-[color:var(--color-border2)] pt-6">
+              <ul className="mt-8 flex flex-col gap-2.5 border-t border-dashed border-border2 pt-6">
                 {p.items.map((it) => (
                   <li
                     key={it}
-                    className="flex items-center gap-3 font-mono text-[11px] tracking-[0.04em] text-[color:var(--color-muted)]"
+                    className="flex items-center gap-3 font-mono text-[11px] tracking-[0.04em] text-muted"
                   >
-                    <span className="text-[color:var(--color-lime)]">→</span>
+                    <span className="text-lime">→</span>
                     {it}
                   </li>
                 ))}
               </ul>
 
               {/* cornermark */}
-              <div className="absolute right-4 top-4 font-mono text-[9px] tracking-[0.25em] text-[color:var(--color-dim)]">
+              <div className="absolute right-4 top-4 font-mono text-[9px] tracking-[0.25em] text-dim">
                 {`[${p.n}/03]`}
               </div>
             </Reveal>

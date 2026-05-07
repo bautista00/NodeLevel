@@ -33,6 +33,9 @@ export default function LenisProvider({
       touchMultiplier: 1.6,
     });
 
+    // Expose lenis globally so HeroExpand can pause/resume it
+    (window as unknown as Record<string, unknown>).__lenisInstance = lenis;
+
     let rafId = 0;
     function raf(time: number) {
       lenis.raf(time);
@@ -49,6 +52,7 @@ export default function LenisProvider({
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as unknown as Record<string, unknown>).__lenisInstance;
     };
   }, []);
 

@@ -12,10 +12,10 @@ type Tier = {
 const TIERS: Tier[] = [
   {
     name: "FREE",
-    desc: "Acceso básico al marketplace y precios en tiempo real.",
+    desc: "Acceso básico para seguir precios y comprar verificado cuando abra el beta.",
     features: [
-      { label: "Acceso al market", included: true },
-      { label: "Ver precios históricos", included: true },
+      { label: "Acceso al market beta", included: true },
+      { label: "Precios de referencia", included: true },
       { label: "Compra verificada", included: true },
       { label: "Prioridad en drops", included: false },
       { label: "Acceso anticipado", included: false },
@@ -27,7 +27,7 @@ const TIERS: Tier[] = [
     features: [
       { label: "Todo lo de Free", included: true },
       { label: "Prioridad en drops", included: true },
-      { label: "Mejores precios", included: true },
+      { label: "Alertas de precio", included: true },
       { label: "Fee reducido", included: true },
       { label: "Acceso anticipado", included: false },
     ],
@@ -62,7 +62,7 @@ export default function Membresias() {
   return (
     <section
       id="membresias"
-      className="relative bg-[color:var(--color-surface)]"
+      className="relative border-t border-border bg-surface"
     >
       <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
         <div className="mb-16 grid grid-cols-12 gap-x-6">
@@ -76,15 +76,15 @@ export default function Membresias() {
                 style={{ letterSpacing: "-0.015em" }}
               >
                 EARLY ACCESS.<br />
-                <span className="text-[color:var(--color-lime)]">LIMITED ENTRY.</span>
+                <span className="text-lime">LIMITED ENTRY.</span>
               </h2>
             </Reveal>
           </div>
           <div className="col-span-12 mt-6 md:col-span-5 md:mt-0 md:flex md:items-end">
             <Reveal delay={140}>
-              <p className="max-w-md text-[15px] leading-[1.7] text-[color:var(--color-muted)]">
-                Cuatro niveles. Status real, no tokens vacíos.
-                <span className="text-[color:var(--color-text)]"> Founders limitados a 100 spots.</span>
+              <p className="max-w-md text-[15px] leading-[1.7] text-muted">
+                Cuatro niveles para expresar intención desde el beta.
+                <span className="text-text"> Precios finales y fees se confirman antes de abrir el market.</span>
               </p>
             </Reveal>
           </div>
@@ -95,21 +95,21 @@ export default function Membresias() {
             <Reveal
               key={t.name}
               delay={i * 100}
-              className={`group relative flex flex-col border bg-[color:var(--color-black)] p-7 transition-all duration-500 hover:-translate-y-1 ${
+              className={`group relative flex cursor-pointer flex-col border bg-black p-7 transition-all duration-500 hover:-translate-y-1.5 ${
                 t.featured
-                  ? "border-[color:var(--color-lime)] shadow-[0_0_60px_-15px_rgba(198,255,61,0.35)] xl:scale-[1.02]"
+                  ? "border-lime shadow-[0_0_60px_-15px_rgba(198,255,61,0.35)] xl:scale-[1.02]"
                   : t.founders
-                    ? "border-[color:var(--color-border2)] hover:border-[color:var(--color-lime)]"
-                    : "border-[color:var(--color-border)] hover:border-[color:var(--color-border2)]"
+                    ? "border-border2 hover:border-lime hover:shadow-[0_0_40px_-15px_rgba(198,255,61,0.2)]"
+                    : "border-border hover:border-border2"
               }`}
             >
               {t.featured ? (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[color:var(--color-lime)] px-3 py-1 font-mono text-[9px] font-bold tracking-[0.25em] text-[#000]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime px-3 py-1 font-mono text-[9px] font-bold tracking-[0.25em] text-[#000]">
                   MÁS POPULAR
                 </span>
               ) : null}
               {t.founders ? (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 border border-[color:var(--color-lime)] bg-[color:var(--color-black)] px-3 py-1 font-mono text-[9px] font-medium tracking-[0.25em] text-[color:var(--color-lime)]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 border border-lime bg-black px-3 py-1 font-mono text-[9px] font-medium tracking-[0.25em] text-lime">
                   100 SPOTS
                 </span>
               ) : null}
@@ -119,38 +119,38 @@ export default function Membresias() {
                 <h3
                   className={`font-display text-[36px] tracking-[0.06em] ${
                     t.featured
-                      ? "text-[color:var(--color-lime)]"
+                      ? "text-lime"
                       : t.founders
-                        ? "text-[color:var(--color-lime)]"
-                        : "text-[color:var(--color-text)]"
+                        ? "text-lime"
+                        : "text-text"
                   }`}
                 >
                   {t.name}
                 </h3>
-                <span className="font-mono text-[10px] tracking-[0.2em] text-[color:var(--color-dim)]">
+                <span className="font-mono text-[10px] tracking-[0.2em] text-dim">
                   T/{String(i + 1).padStart(2, "0")}
                 </span>
               </div>
 
-              <p className="mt-3 text-[13px] leading-[1.55] text-[color:var(--color-muted)]">
+              <p className="mt-3 text-[13px] leading-[1.55] text-muted">
                 {t.desc}
               </p>
 
-              <ul className="mt-7 flex flex-col gap-3 border-t border-dashed border-[color:var(--color-border2)] pt-6">
+              <ul className="mt-7 flex flex-col gap-3 border-t border-dashed border-border2 pt-6">
                 {t.features.map((f) => (
                   <li
                     key={f.label}
                     className={`flex items-center gap-3 text-[13px] ${
                       f.included
-                        ? "text-[color:var(--color-text)]"
-                        : "text-[color:var(--color-dim)] line-through decoration-[color:var(--color-border2)]"
+                        ? "text-text"
+                        : "text-dim line-through decoration-border2"
                     }`}
                   >
                     <span
                       className={`flex h-4 w-4 items-center justify-center text-[10px] ${
                         f.included
-                          ? "text-[color:var(--color-lime)]"
-                          : "text-[color:var(--color-border2)]"
+                          ? "text-lime"
+                          : "text-border2"
                       }`}
                     >
                       {f.included ? "✓" : "—"}
@@ -162,13 +162,15 @@ export default function Membresias() {
 
               <div className="mt-auto pt-8">
                 <a
-                  href="#waitlist"
+                  href={`#waitlist-${t.name.toLowerCase()}`}
                   data-magnetic
+                  data-tier={t.name}
                   className={`inline-flex w-full items-center justify-center gap-2 px-5 py-3 font-mono text-[10px] font-medium tracking-[0.2em] transition-colors ${
                     t.featured
-                      ? "bg-[color:var(--color-lime)] font-bold text-[#000] hover:opacity-90"
-                      : "border border-[color:var(--color-border2)] text-[color:var(--color-muted)] hover:border-[color:var(--color-lime)] hover:text-[color:var(--color-lime)]"
+                      ? "bg-lime font-bold hover:opacity-90"
+                      : "border border-border2 text-muted hover:border-lime hover:text-lime"
                   }`}
+                  style={t.featured ? { color: "#000" } : undefined}
                 >
                   ANOTARME <span aria-hidden>→</span>
                 </a>

@@ -26,7 +26,7 @@ export default function Nav() {
     <nav
       className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-12 ${
         scrolled
-          ? "border-b border-[color:var(--color-border)] bg-black/85 backdrop-blur-md"
+          ? "border-b border-border bg-black/85 backdrop-blur-md"
           : "border-b border-transparent"
       }`}
     >
@@ -39,7 +39,7 @@ export default function Nav() {
           priority
           className="h-9 w-9 object-contain"
         />
-        <span className="font-display text-[18px] tracking-[0.3em] text-[color:var(--color-lime)]">
+        <span className="font-display text-[18px] tracking-[0.3em] text-lime">
           NODELEVEL
         </span>
       </a>
@@ -50,7 +50,7 @@ export default function Nav() {
             <a
               href={l.href}
               data-magnetic
-              className="font-mono text-[11px] tracking-[0.2em] text-[color:var(--color-muted)] transition-colors hover:text-[color:var(--color-lime)]"
+              className="font-mono text-[11px] tracking-[0.2em] text-muted transition-colors hover:text-lime"
             >
               {l.label}
             </a>
@@ -59,15 +59,16 @@ export default function Nav() {
       </ul>
 
       <div className="hidden items-center gap-4 md:flex">
-        <span className="hidden font-mono text-[10px] tracking-[0.2em] text-[color:var(--color-dim)] lg:inline">
+        <span className="hidden font-mono text-[10px] tracking-[0.2em] text-dim lg:inline">
           [v0.1.0 — BETA]
         </span>
         <a
           href="#waitlist"
           data-magnetic
-          className="inline-flex items-center gap-2 bg-[color:var(--color-lime)] px-5 py-2.5 font-mono text-[11px] font-bold tracking-[0.18em] text-[#000] transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-2 bg-lime px-5 py-2.5 font-mono text-[11px] font-bold tracking-[0.18em] transition-opacity hover:opacity-90"
+          style={{ color: "#000" }}
         >
-          UNIRSE A LA LISTA <span aria-hidden>→</span>
+          ENTRAR AL BETA <span aria-hidden>→</span>
         </a>
       </div>
 
@@ -77,20 +78,20 @@ export default function Nav() {
         aria-label="Menu"
         aria-expanded={open}
         onClick={() => setOpen((s) => !s)}
-        className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] border border-[color:var(--color-border2)] md:hidden"
+        className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] border border-border2 md:hidden"
       >
         <span
-          className={`block h-px w-4 bg-[color:var(--color-text)] transition-transform ${open ? "translate-y-[3px] rotate-45" : ""}`}
+          className={`block h-px w-4 bg-text transition-transform ${open ? "translate-y-[3px] rotate-45" : ""}`}
         />
         <span
-          className={`block h-px w-4 bg-[color:var(--color-text)] transition-transform ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
+          className={`block h-px w-4 bg-text transition-transform ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
         />
       </button>
 
       {/* mobile menu */}
       <div
-        className={`absolute inset-x-0 top-full origin-top border-b border-[color:var(--color-border)] bg-black/95 backdrop-blur-md md:hidden ${
-          open ? "block" : "hidden"
+        className={`absolute inset-x-0 top-full overflow-hidden border-b border-border bg-black/95 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden ${
+          open ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <ul className="flex flex-col gap-4 px-6 py-6">
@@ -99,7 +100,7 @@ export default function Nav() {
               <a
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block font-mono text-[12px] tracking-[0.2em] text-[color:var(--color-muted)]"
+                className="block font-mono text-[12px] tracking-[0.2em] text-muted"
               >
                 {l.label}
               </a>
@@ -109,9 +110,10 @@ export default function Nav() {
             <a
               href="#waitlist"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-2 bg-[color:var(--color-lime)] px-5 py-3 font-mono text-[11px] font-bold tracking-[0.18em] text-[#000]"
+              className="inline-flex items-center gap-2 bg-lime px-5 py-3 font-mono text-[11px] font-bold tracking-[0.18em]"
+              style={{ color: "#000" }}
             >
-              UNIRSE A LA LISTA →
+              ENTRAR AL BETA →
             </a>
           </li>
         </ul>

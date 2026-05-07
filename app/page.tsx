@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import HeroScrub from "@/components/HeroScrub";
+import HeroExpand from "@/components/HeroExpand";
 import Ticker from "@/components/Ticker";
 import Problema from "@/components/Problema";
 import Pilares from "@/components/Pilares";
@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="relative">
       <Nav />
-      <HeroScrub />
+      <HeroExpand />
       <Ticker />
       <Problema />
       <Pilares />

@@ -10,15 +10,19 @@ type QA = { q: string; a: string };
 const FAQS: QA[] = [
   {
     q: "¿Cómo sé que el producto es auténtico?",
-    a: "Cada producto pasa por nuestro proceso de 7 pasos antes de publicarse. Recibe un ID único y un tag Verified by Node que garantiza autenticidad y estado real.",
+    a: "Cada producto pasa por nuestro proceso de 7 pasos antes de publicarse. Recibe un ID único, criterios de validación y un tag Verified by Node para consultar autenticidad, estado real e historial.",
+  },
+  {
+    q: "¿Qué está disponible durante la beta?",
+    a: "La beta abre acceso por etapas a waitlist, referencias de precio, comunidad y primeros drops verificados. El marketplace completo, Ask/Bid y datos en tiempo real se activan progresivamente.",
   },
   {
     q: "¿Puedo vender en NODE?",
-    a: "Sí. Podés listar productos a través de venta directa o consignación. El equipo de NODE verifica cada ítem antes de que aparezca en el market.",
+    a: "Sí. Podés dejar tu intención como seller en la waitlist. En la beta, el equipo de NODE prioriza productos que puedan verificarse físicamente antes de entrar al market.",
   },
   {
     q: "¿Cómo funciona el sistema de precios?",
-    a: "Usamos un sistema tipo bolsa con Ask (precio del vendedor) y Bid (oferta del comprador). El precio de mercado se forma por oferta y demanda real, con historial visible.",
+    a: "Durante la beta mostramos precios de referencia y tendencia. El sistema Ask/Bid se activa en la siguiente etapa para formar precio por oferta y demanda real, con historial visible.",
   },
   {
     q: "¿Dónde entregan los productos?",
@@ -38,7 +42,11 @@ const FAQS: QA[] = [
   },
   {
     q: "¿Cómo me contacto con NODE?",
-    a: "A través de nuestras redes sociales o el formulario de contacto. Los miembros Black y Founders tienen soporte prioritario directo.",
+    a: "Podés escribir a hola@nodelevel.com. Los miembros Black y Founders tendrán soporte prioritario directo cuando se abra el acceso privado.",
+  },
+  {
+    q: "¿Qué hacen con mi email?",
+    a: "Lo usamos solo para avisarte sobre apertura del beta, prioridad Founders y próximos drops verificados. No vendemos tu información ni enviamos spam.",
   },
 ];
 
@@ -48,7 +56,7 @@ export default function Faq() {
   return (
     <section
       id="faq"
-      className="relative bg-[color:var(--color-surface2)]"
+      className="relative border-t border-border bg-surface2"
     >
       <div className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-40">
         <div className="mb-16 grid grid-cols-12 gap-x-6">
@@ -68,12 +76,12 @@ export default function Faq() {
           </div>
           <div className="col-span-12 mt-6 md:col-span-5 md:mt-0 md:flex md:items-end">
             <Reveal delay={140}>
-              <p className="max-w-md text-[15px] leading-[1.7] text-[color:var(--color-muted)]">
+              <p className="max-w-md text-[15px] leading-[1.7] text-muted">
                 ¿Algo que no está acá?
                 <a
                   href="mailto:hola@nodelevel.com"
                   data-magnetic
-                  className="ml-1 text-[color:var(--color-lime)] underline-offset-4 hover:underline"
+                  className="ml-1 text-lime underline-offset-4 hover:underline"
                 >
                   hola@nodelevel.com
                 </a>
@@ -82,32 +90,32 @@ export default function Faq() {
           </div>
         </div>
 
-        <ul className="border-t border-[color:var(--color-border)]">
+        <ul className="border-t border-border">
           {FAQS.map((qa, i) => {
             const isOpen = open === i;
             return (
               <li
                 key={qa.q}
-                className="border-b border-[color:var(--color-border)]"
+                className="border-b border-border"
               >
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   data-magnetic
-                  className="flex w-full items-start justify-between gap-6 px-1 py-6 text-left transition-colors hover:text-[color:var(--color-lime)]"
+                  className="flex w-full cursor-pointer items-start justify-between gap-6 px-1 py-6 text-left transition-colors duration-200 hover:text-lime"
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-start gap-6">
-                    <span className="mt-1 font-mono text-[10px] tracking-[0.25em] text-[color:var(--color-dim)]">
+                    <span className="mt-1 font-mono text-[10px] tracking-[0.25em] text-dim">
                       Q.{String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[16px] font-medium text-[color:var(--color-text)] md:text-[18px]">
+                    <span className="text-[16px] font-medium text-text md:text-[18px]">
                       {qa.q}
                     </span>
                   </div>
                   <span
                     aria-hidden
-                    className={`shrink-0 font-mono text-[16px] text-[color:var(--color-lime)] transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                    className={`shrink-0 font-mono text-[16px] text-lime transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
                   >
                     +
                   </span>
@@ -128,7 +136,7 @@ export default function Faq() {
                     >
                       <div className="grid grid-cols-1 gap-6 px-1 pb-7 md:grid-cols-12">
                         <div className="md:col-span-2" />
-                        <p className="text-[14px] leading-[1.7] text-[color:var(--color-muted)] md:col-span-9">
+                        <p className="text-[14px] leading-[1.7] text-muted md:col-span-9">
                           {qa.a}
                         </p>
                       </div>
