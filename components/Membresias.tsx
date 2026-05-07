@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Reveal from "./Reveal";
 import SectionMeta from "./SectionMeta";
 
@@ -59,6 +62,16 @@ const TIERS: Tier[] = [
 ];
 
 export default function Membresias() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  function onCarouselScroll() {
+    const el = carouselRef.current;
+    if (!el) return;
+    const cardW = el.scrollWidth / TIERS.length;
+    setActiveIdx(Math.round(el.scrollLeft / cardW));
+  }
+
   return (
     <section
       id="membresias"
@@ -90,12 +103,17 @@ export default function Membresias() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {/* Mobile: carousel — Desktop: grid */}
+        <div
+          ref={carouselRef}
+          onScroll={onCarouselScroll}
+          className="no-scrollbar -mx-6 flex snap-x snap-mandatory overflow-x-auto gap-px md:mx-0 md:grid md:grid-cols-2 md:gap-3 md:overflow-visible xl:grid-cols-4"
+        >
           {TIERS.map((t, i) => (
             <Reveal
               key={t.name}
               delay={i * 100}
-              className={`group relative flex cursor-pointer flex-col border bg-black p-7 transition-all duration-500 hover:-translate-y-1.5 ${
+              className={`group relative flex w-[82vw] flex-shrink-0 snap-start cursor-pointer flex-col border bg-black p-7 transition-all duration-500 hover:-translate-y-1.5 first:ml-6 last:mr-6 md:w-auto md:flex-shrink md:first:ml-0 md:last:mr-0 ${
                 t.featured
                   ? "border-lime shadow-[0_0_60px_-15px_rgba(198,255,61,0.35)] xl:scale-[1.02]"
                   : t.founders
@@ -176,6 +194,20 @@ export default function Membresias() {
                 </a>
               </div>
             </Reveal>
+          ))}
+        </div>
+
+        {/* Dot indicators — solo mobile */}
+        <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+          {TIERS.map((t, i) => (
+            <span
+              key={t.name}
+              className="h-[3px] transition-all duration-300"
+              style={{
+                width: activeIdx === i ? "24px" : "8px",
+                background: activeIdx === i ? "var(--color-lime)" : "var(--color-border2)",
+              }}
+            />
           ))}
         </div>
       </div>
