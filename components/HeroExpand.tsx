@@ -124,11 +124,27 @@ export default function HeroExpand() {
       }
     };
 
+    // Saltar animación del hero y navegar a una sección (disparado desde el Nav)
+    const onHeroSkip = (e: Event) => {
+      const { href } = (e as CustomEvent<{ href: string }>).detail;
+      progressRef.current = 1;
+      expandedRef.current = true;
+      setScrollProgress(1);
+      setMediaFullyExpanded(true);
+      getLenis()?.start();
+      setShowCta(true);
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    };
+
     window.addEventListener("wheel", onWheel as EventListener, { passive: false });
     window.addEventListener("touchstart", onTouchStart as EventListener, { passive: false });
     window.addEventListener("touchmove", onTouchMove as EventListener, { passive: false });
     window.addEventListener("touchend", onTouchEnd);
     window.addEventListener("scroll", onScroll);
+    window.addEventListener("hero-skip", onHeroSkip);
 
     return () => {
       window.removeEventListener("wheel", onWheel as EventListener);
@@ -136,6 +152,7 @@ export default function HeroExpand() {
       window.removeEventListener("touchmove", onTouchMove as EventListener);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("hero-skip", onHeroSkip);
       getLenis()?.start(); // restaurar al desmontar
     };
   }, []); // deps [] — los refs manejan los valores sin re-montar listeners

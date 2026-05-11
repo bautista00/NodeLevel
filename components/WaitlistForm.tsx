@@ -17,7 +17,6 @@ export default function WaitlistForm({
   variant = "full",
 }: WaitlistFormProps) {
   const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
   const [tier, setTier] = useState(defaultTier);
   const [status, setStatus] = useState<Status>("idle");
   const [code, setCode] = useState<string | null>(null);
@@ -44,7 +43,7 @@ export default function WaitlistForm({
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, city, tier, source }),
+        body: JSON.stringify({ email, tier, source }),
       });
       const data = await res.json();
       if (!data.ok) {
@@ -73,7 +72,7 @@ export default function WaitlistForm({
           exit={{ opacity: 0, y: -10 }}
           className="flex flex-col gap-3"
         >
-          <div className={`flex flex-col gap-2 ${compact ? "md:max-w-[680px] md:flex-row" : "md:flex-row"}`}>
+          <div className={`flex flex-col gap-2 ${compact ? "md:max-w-[560px] md:flex-row" : "md:flex-row"}`}>
             <input
               type="email"
               required
@@ -81,14 +80,6 @@ export default function WaitlistForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="min-w-0 flex-1 border border-border2 bg-surface px-4 py-4 font-mono text-[13px] text-text outline-none placeholder:text-dim focus:border-lime"
-              disabled={status === "loading"}
-            />
-            <input
-              type="text"
-              placeholder="ciudad"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className={`${compact ? "md:w-36" : "md:w-40"} w-full border border-border2 bg-surface px-4 py-4 font-mono text-[13px] text-text outline-none placeholder:text-dim focus:border-lime`}
               disabled={status === "loading"}
             />
             <button

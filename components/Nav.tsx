@@ -9,6 +9,10 @@ const LINKS = [
   { href: "#faq", label: "FAQ" },
 ];
 
+function navigateTo(href: string) {
+  window.dispatchEvent(new CustomEvent("hero-skip", { detail: { href } }));
+}
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -49,6 +53,7 @@ export default function Nav() {
             <a
               href={l.href}
               data-magnetic
+              onClick={(e) => { e.preventDefault(); navigateTo(l.href); }}
               className="font-mono text-[11px] tracking-[0.2em] text-muted transition-colors hover:text-lime"
             >
               {l.label}
@@ -64,6 +69,7 @@ export default function Nav() {
         <a
           href="#waitlist"
           data-magnetic
+          onClick={(e) => { e.preventDefault(); navigateTo("#waitlist"); }}
           className="inline-flex items-center gap-2 bg-lime px-5 py-2.5 font-mono text-[11px] font-bold tracking-[0.18em] transition-opacity hover:opacity-90"
           style={{ color: "#000" }}
         >
@@ -98,7 +104,7 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => { e.preventDefault(); setOpen(false); navigateTo(l.href); }}
                 className="block font-mono text-[12px] tracking-[0.2em] text-muted"
               >
                 {l.label}
@@ -108,7 +114,7 @@ export default function Nav() {
           <li>
             <a
               href="#waitlist"
-              onClick={() => setOpen(false)}
+              onClick={(e) => { e.preventDefault(); setOpen(false); navigateTo("#waitlist"); }}
               className="inline-flex items-center gap-2 bg-lime px-5 py-3 font-mono text-[11px] font-bold tracking-[0.18em]"
               style={{ color: "#000" }}
             >

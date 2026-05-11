@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { bebas, dmSans, jetbrains } from "./fonts";
 import LenisProvider from "@/components/LenisProvider";
 import Cursor from "@/components/Cursor";
+import WaitlistPopup from "@/components/WaitlistPopup";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function RootLayout({
       <body>
         <LenisProvider>
           <Cursor />
+          <WaitlistPopup />
           {children}
         </LenisProvider>
       </body>
