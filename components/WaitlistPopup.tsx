@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useWaitlistForm } from "@/lib/useWaitlistForm";
 
 const STORAGE_KEY = "nl_popup_dismissed";
-const DELAY_MS = 10_000;
+const DELAY_MS = 7_000;
 
 export default function WaitlistPopup() {
   const [visible, setVisible] = useState(false);
