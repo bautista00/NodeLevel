@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useWaitlistForm } from "@/lib/useWaitlistForm";
 
-type Status = "idle" | "loading" | "success" | "error";
 type Variant = "hero" | "full";
 
 type WaitlistFormProps = {
@@ -11,53 +11,19 @@ type WaitlistFormProps = {
   variant?: Variant;
 };
 
-export default function WaitlistForm({
-  source,
-  defaultTier = "FOUNDERS",
-  variant = "full",
-}: WaitlistFormProps) {
-  const [email, setEmail] = useState("");
+export default function WaitlistForm({ source, defaultTier = "FOUNDERS", variant = "full" }: WaitlistFormProps) {
   const [tier, setTier] = useState(defaultTier);
-  const [status, setStatus] = useState<Status>("idle");
-  const [code, setCode] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { email, setEmail, status, code, error, onSubmit } = useWaitlistForm(source, tier);
 
   useEffect(() => {
     const syncTierFromHash = () => {
       const match = window.location.hash.match(/^#waitlist-(free|gold|black|founders)$/i);
       if (match) setTier(match[1].toUpperCase());
     };
-
     syncTierFromHash();
     window.addEventListener("hashchange", syncTierFromHash);
     return () => window.removeEventListener("hashchange", syncTierFromHash);
   }, []);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (status === "loading") return;
-    setStatus("loading");
-    setError(null);
-
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, tier, source }),
-      });
-      const data = await res.json();
-      if (!data.ok) {
-        setStatus("error");
-        setError(data.error || "Algo salió mal");
-        return;
-      }
-      setCode(data.code);
-      setStatus("success");
-    } catch {
-      setStatus("error");
-      setError("Error de red");
-    }
-  }
 
   const compact = variant === "hero";
 
@@ -93,25 +59,14 @@ export default function WaitlistForm({
             </button>
           </div>
 
-          {error ? (
-            <div className="font-mono text-[10px] tracking-[0.15em] text-danger">
-              [ERROR] {error}
-            </div>
-          ) : null}
+          {error && (
+            <div className="font-mono text-[10px] tracking-[0.15em] text-danger">[ERROR] {error}</div>
+          )}
 
           <ul className={`mt-2 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] tracking-[0.15em] text-dim ${compact ? "" : "justify-center"}`}>
-            <li className="flex items-center gap-2">
-              <span className="text-lime">✓</span>
-              Sin spam
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-lime">✓</span>
-              Acceso prioritario al beta
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-lime">✓</span>
-              100 Founders limitados
-            </li>
+            <li className="flex items-center gap-2"><span className="text-lime">✓</span> Sin spam</li>
+            <li className="flex items-center gap-2"><span className="text-lime">✓</span> Acceso prioritario al beta</li>
+            <li className="flex items-center gap-2"><span className="text-lime">✓</span> 100 Founders limitados</li>
           </ul>
 
           <p className={`font-mono text-[10px] leading-relaxed tracking-[0.12em] text-dim ${compact ? "max-w-xl" : "text-center"}`}>
@@ -126,16 +81,13 @@ export default function WaitlistForm({
           exit={{ opacity: 0 }}
           className={`${compact ? "max-w-xl p-5 text-left" : "p-8 text-center"} border border-lime bg-surface`}
         >
-          <div className="font-mono text-[11px] tracking-[0.3em] text-lime">
-            ▸ ESTÁS EN LA LISTA
-          </div>
+          <div className="font-mono text-[11px] tracking-[0.3em] text-lime">▸ ESTÁS EN LA LISTA</div>
           <div className={`${compact ? "text-[34px]" : "text-[44px]"} mt-5 inline-block border border-dashed border-lime px-6 py-3 font-display tracking-[0.4em] text-lime`}>
             {code}
           </div>
           <p className="mt-5 font-mono text-[11px] leading-[1.8] tracking-[0.1em] text-muted">
             Guardá este código. Te avisamos por email cuando abramos el acceso al beta privado de NODE.
-            <br />
-            Tu intención quedó registrada como {tier}.
+            <br />Tu intención quedó registrada como {tier}.
           </p>
         </motion.div>
       )}

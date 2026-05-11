@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SectionLink from "./SectionLink";
 
 const COLS = [
   {
@@ -90,13 +91,13 @@ export default function Footer() {
               <ul className="flex flex-col gap-2.5">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <a
+                    <SectionLink
                       href={l.href}
                       data-magnetic
                       className="text-[13px] text-muted transition-colors hover:text-text"
                     >
                       {l.label}
-                    </a>
+                    </SectionLink>
                   </li>
                 ))}
               </ul>
