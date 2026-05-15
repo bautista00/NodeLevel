@@ -60,16 +60,16 @@ export default function Verificacion() {
 
           {/* Derecha — pipeline vertical */}
           <div className="col-span-12 md:col-span-7">
-            <div className="relative flex flex-col">
+            <div className="relative grid grid-rows-5">
               {/* vertical line */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute left-[21px] top-6 bottom-6 w-px bg-border"
+                className="pointer-events-none absolute left-[21px] top-0 bottom-0 w-px bg-border"
               />
 
               {STEPS.map((s, i) => (
-                <Reveal key={s.code} delay={80 + i * 80}>
-                  <div className="relative flex gap-6 pb-8 last:pb-0">
+                <Reveal key={s.code} delay={80 + i * 80} className="h-full">
+                  <div className="relative flex gap-6 h-full">
                     {/* node circle */}
                     <div
                       className={`relative z-10 mt-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center border font-display text-[14px] ${
@@ -82,7 +82,7 @@ export default function Verificacion() {
                     </div>
 
                     {/* content */}
-                    <div className="flex-1 border-b border-border pb-8 last:border-0">
+                    <div className="flex-1 border-b border-border pb-6 last:border-0 flex flex-col justify-center">
                       <div
                         className={`font-display text-[22px] tracking-[0.04em] ${
                           s.final ? "text-lime" : "text-text"
